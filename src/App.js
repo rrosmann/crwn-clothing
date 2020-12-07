@@ -29,14 +29,14 @@ class App extends React.Component {
         } else {
           // user logged in
           const userReference = await createUserProfileDocument(userAuth);
-          userReference.onSnapshot((userSnapshot) =>
+          userReference.onSnapshot((userSnapshot) => {
             this.setState({
               currentUser: {
                 id: userSnapshot.id,
                 ...userSnapshot.data(),
               },
-            })
-          );
+            });
+          });
         }
       }
     );
