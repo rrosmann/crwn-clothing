@@ -13,6 +13,8 @@
   font-weight: bolder;
   border: none;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
 
   &:hover {
     background-color: grey;
@@ -26,6 +28,17 @@
 
     &:hover {
       background-color: rgb(29, 77, 207);
+      border: none;
+    }
+  }
+
+  &.checkout-button {
+    background-color: grey;
+    color: black;
+
+    &:hover {
+      background-color: black;
+      color: white;
       border: none;
     }
   }

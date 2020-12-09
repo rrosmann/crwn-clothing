@@ -9,10 +9,10 @@ const FashionCollectionPreview = ({ title, items }) => (
     <div className='items-preview'>
       {items
         .filter((item, index) => index < 4)
-        .map(({ id, ...otherItemProps }) => (
+        .map((item) => (
           <FashionCollectionItem
-            key={id}
-            {...otherItemProps}
+            key={item.id}
+            item={item}
           ></FashionCollectionItem>
         ))}
     </div>

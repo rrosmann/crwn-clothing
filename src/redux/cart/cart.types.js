@@ -1,0 +1,5 @@
+const CART_REDUCER_TYPES = {
+  ADD_ITEM_TO_CART: 'ADD_ITEM_TO_CART',
+};
+
+export default CART_REDUCER_TYPES;
