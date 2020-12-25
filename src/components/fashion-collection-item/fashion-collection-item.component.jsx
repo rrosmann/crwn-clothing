@@ -19,10 +19,10 @@ const FashionCollectionItem = ({ item, addItemToCart }) => {
         <span className='price'>{price}</span>
       </div>
       <CustomButton
-        additionalClassName='checkout-button'
+        additionalClassName='add-item-button'
         onClick={() => addItemToCart(item)}
       >
-        GO TO CHECKOUT
+        ADD TO CART
       </CustomButton>
     </div>
   );

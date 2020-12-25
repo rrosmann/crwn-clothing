@@ -4,9 +4,9 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
   );
 
   if (existingCartItem) {
-    console.log(existingCartItem);
     existingCartItem.quantity = existingCartItem.quantity + 1;
-    return cartItems;
+    // return a new Array-Object, otherwise no state change is notified by React.
+    return Array.from(cartItems);
   }
 
   return [...cartItems, { ...cartItemToAdd, quantity: 1 }];
