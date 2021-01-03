@@ -10,6 +10,7 @@ import Homepage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop-page/shop-page.component';
 import Header from './components/header/header.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up-page/sign-in-and-sign-up-page';
+import CheckoutPage from './pages/checkout-page/checkout-page.component';
 import {
   setCurrentUser,
   setCurrentUserToNull,
@@ -53,7 +54,8 @@ class App extends React.Component {
         <Header></Header>
         <Switch>
           <Route exact path='/' component={Homepage}></Route>
-          <Route exact path='/shop' component={ShopPage}></Route>
+          <Route path='/shop' component={ShopPage}></Route>
+          <Route exact path='/checkout' component={CheckoutPage}></Route>
           <Route
             exact
             path='/login'
