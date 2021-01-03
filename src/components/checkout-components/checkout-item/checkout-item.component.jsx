@@ -10,7 +10,6 @@ import {
 // no need for a 'class-component', but I wanted to use it because of "learning reasons"
 class CheckoutItem extends React.Component {
   render() {
-    console.log('test');
     const {
       cartItem,
       addItemToCart,
