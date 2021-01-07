@@ -28,7 +28,7 @@ class App extends React.Component {
         // user logged out
         if (!userAuth) {
           setCurrentUserToNull();
-        } else {
+        } else if (userAuth) {
           // user logged in
           const userReference = await createUserProfileDocument(userAuth);
           userReference.onSnapshot((userSnapshot) => {
@@ -46,6 +46,10 @@ class App extends React.Component {
     this.unsubscribeFromFirebaseAuth();
   }
 
+  renderRedirect = (currentUser) => {
+    return () => (currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage />);
+  };
+
   render() {
     const { currentUser } = this.props;
 
@@ -59,9 +63,7 @@ class App extends React.Component {
           <Route
             exact
             path='/login'
-            render={() =>
-              currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage />
-            }
+            render={this.renderRedirect(currentUser)}
           ></Route>
         </Switch>
       </div>
