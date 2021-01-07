@@ -49,3 +49,36 @@ export const createUserProfileDocument = async (
 
   return userReference;
 };
+
+export const createNewFirestoreCollectionAndDocuments = async (
+  newFirestoreCollectionName,
+  dataObjectForFirestoreStorage
+) => {
+  const newCollectionRef = firestore.collection(newFirestoreCollectionName);
+  const batch = firestore.batch();
+
+  dataObjectForFirestoreStorage.forEach((element) => {
+    const newDocRef = newCollectionRef.doc();
+    batch.set(newDocRef, element);
+  });
+
+  return await batch.commit();
+};
+
+export const mapFashionCollectionFromFirestoreForReduxState = async () => {
+  const collectionRef = firestore.collection('fashionCollections');
+  const querySnapshot = await collectionRef.get();
+  const mappedReturnObject = {};
+
+  querySnapshot.docs.forEach((fashionCollectionDocSnapshot) => {
+    const data = fashionCollectionDocSnapshot.data();
+    const newDataObject = {
+      routeName: encodeURI(data.title.toLowerCase()),
+      id: fashionCollectionDocSnapshot.id,
+      ...data,
+    };
+    mappedReturnObject[data.title.toLowerCase()] = newDataObject;
+  });
+
+  return mappedReturnObject;
+};

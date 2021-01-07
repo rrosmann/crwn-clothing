@@ -40,6 +40,15 @@ class App extends React.Component {
         }
       }
     );
+
+    // lecture 174
+    // createNewFirestoreCollectionAndDocuments(
+    //   'fashionCollections',
+    //   fashionCollectionsPreview.map((element) => {
+    //     const { title, items } = element;
+    //     return { title, items };
+    //   })
+    // );
   }
 
   componentWillUnmount() {
