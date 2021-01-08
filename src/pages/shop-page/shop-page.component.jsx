@@ -3,36 +3,70 @@ import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FashionCollectionsOverview from '../../components/fashion-collections-overview/fashion-collections-overview.component';
 import FashionCollectionPage from '../fashion-collection-page/fashion-collection-page.component';
-import { mapFashionCollectionFromFirestoreForReduxState } from '../../firebase/firebase.utils';
+import {
+  firestore,
+  mapFashionCollectionFromFirestoreForReduxState,
+} from '../../firebase/firebase.utils';
 import { updateFashionCollectionPreviewData } from '../../redux/shop-data/shop-data.actions';
+import withSpinner from '../../components/with-spinner/with-spinner.component';
 
+const FashionCollectionsOverviewWithSpinner = withSpinner(
+  FashionCollectionsOverview
+);
+const FashionCollectionPageWithSpinner = withSpinner(FashionCollectionPage);
 class ShopPage extends React.Component {
-  unSubscribeFromFirebase = null;
+  state = {
+    isLoading: true,
+  };
+
+  unSubscribeFromSnapshot = null;
 
   componentDidMount() {
     const { updateFashionCollectionPreviewData } = this.props;
-    mapFashionCollectionFromFirestoreForReduxState().then(
-      (mappedObjectForReduxState) =>
-        updateFashionCollectionPreviewData(mappedObjectForReduxState)
+    const collectionRef = firestore.collection('fashionCollections');
+
+    this.unSubscribeFromSnapshot = collectionRef.onSnapshot(
+      async (querySnapshot) => {
+        const mappedObjectForReduxState = await mapFashionCollectionFromFirestoreForReduxState(
+          querySnapshot
+        );
+        updateFashionCollectionPreviewData(mappedObjectForReduxState);
+        this.setState({ isLoading: false });
+      }
     );
   }
 
   render() {
     const { match } = this.props;
+    const { isLoading } = this.state;
     return (
       <div>
         <h1>Shop Page</h1>
         <Route
           exact
           path={`${match.path}`}
-          component={FashionCollectionsOverview}
+          render={(props) => (
+            <FashionCollectionsOverviewWithSpinner
+              isLoading={isLoading}
+              {...props}
+            />
+          )}
         ></Route>
         <Route
           path={`${match.path}/:categoryId`}
-          component={FashionCollectionPage}
+          render={(props) => (
+            <FashionCollectionPageWithSpinner
+              isLoading={isLoading}
+              {...props}
+            />
+          )}
         ></Route>
       </div>
     );
+  }
+
+  componentWillUnmount() {
+    this.unSubscribeFromSnapshot();
   }
 }
 

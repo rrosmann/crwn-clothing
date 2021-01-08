@@ -11,13 +11,14 @@ export const fashionCollectionsSelector = createSelector(
 export const fashionCollectionsPreviewSelector = createSelector(
   [fashionCollectionsSelector],
   (fashionCollection) =>
-    Object.keys(fashionCollection).map((key) => fashionCollection[key])
+    fashionCollection
+      ? Object.keys(fashionCollection).map((key) => fashionCollection[key])
+      : []
 );
 
 export const fashionCollectionSelector = memoize((fashionCollectionName) =>
-  createSelector(
-    [fashionCollectionsSelector],
-    (fashionCollections) => fashionCollections[fashionCollectionName]
+  createSelector([fashionCollectionsSelector], (fashionCollections) =>
+    fashionCollections ? fashionCollections[fashionCollectionName] : null
   )
 );
 

@@ -65,9 +65,9 @@ export const createNewFirestoreCollectionAndDocuments = async (
   return await batch.commit();
 };
 
-export const mapFashionCollectionFromFirestoreForReduxState = async () => {
-  const collectionRef = firestore.collection('fashionCollections');
-  const querySnapshot = await collectionRef.get();
+export const mapFashionCollectionFromFirestoreForReduxState = async (
+  querySnapshot
+) => {
   const mappedReturnObject = {};
 
   querySnapshot.docs.forEach((fashionCollectionDocSnapshot) => {

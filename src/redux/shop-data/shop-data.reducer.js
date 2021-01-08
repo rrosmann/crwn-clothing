@@ -1,8 +1,8 @@
-import SHOP_DATA from './shop-data';
+// import SHOP_DATA from './shop-data';
 import SHOP_DATA_REDUCER_ACTION_TYPES from './shop-data.types';
 
 const INITIAL_STATE = {
-  fashionCollections: SHOP_DATA,
+  fashionCollections: null,
 };
 
 const shopDataReducer = (state = INITIAL_STATE, action) => {
@@ -10,7 +10,7 @@ const shopDataReducer = (state = INITIAL_STATE, action) => {
     case SHOP_DATA_REDUCER_ACTION_TYPES.UPDATE_FASHION_COLLECTION_PREVIEW_DATA: {
       return {
         ...state,
-        firebaseFashionCollections: action.payload,
+        fashionCollections: action.payload,
       };
     }
     default:
