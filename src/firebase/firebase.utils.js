@@ -18,7 +18,7 @@ export default firebase;
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
+export const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
@@ -65,7 +65,7 @@ export const createNewFirestoreCollectionAndDocuments = async (
   return await batch.commit();
 };
 
-export const mapFashionCollectionFromFirestoreForReduxState = async (
+export const mapFashionCollectionFromFirestoreForReduxState = (
   querySnapshot
 ) => {
   const mappedReturnObject = {};

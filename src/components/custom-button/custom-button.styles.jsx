@@ -20,6 +20,13 @@ const checkoutButtonStyles = css`
   }
 `;
 
+// const addItemToCartButtonStyles = css`
+//   width: 80%;
+//   position: absolute;
+//   top: 255px;
+//   display: none;
+// `;
+
 const determineStylesForAdditionalClass = function ({ additionalClassName }) {
   if (additionalClassName === 'google-sign-in') {
     return googleSignInButtonStyles;
@@ -28,6 +35,10 @@ const determineStylesForAdditionalClass = function ({ additionalClassName }) {
   if (additionalClassName === 'checkout-button') {
     return checkoutButtonStyles;
   }
+
+  // if (additionalClassName === 'add-item-button') {
+  //   return addItemToCartButtonStyles;
+  // }
 
   return null;
 };

@@ -22,6 +22,16 @@ export const fashionCollectionSelector = memoize((fashionCollectionName) =>
   )
 );
 
+export const isFetchingDataSelector = createSelector(
+  [shopDataSelector],
+  (shopData) => shopData.isFetchingData
+);
+
+export const areFashionCollectionsLoaded = createSelector(
+  [shopDataSelector],
+  (shopData) => (shopData.fashionCollections !== null ? true : false)
+);
+
 // https://stackoverflow.com/questions/50006884/redux-understanding-advanced-mapstatetoprops-returning-a-function
 // https://redux.js.org/recipes/computing-derived-data#selectorstodoselectorsjs
 const getFashionCollection = (state, props) =>
