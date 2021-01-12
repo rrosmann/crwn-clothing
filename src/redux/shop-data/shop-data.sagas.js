@@ -1,4 +1,4 @@
-import { takeEvery, call, put } from 'redux-saga/effects';
+import { takeEvery, call, put, all } from 'redux-saga/effects';
 import SHOP_DATA_REDUCER_ACTION_TYPES from './shop-data.types';
 import {
   firestore,
@@ -25,9 +25,13 @@ function* fetchFashionCollectionAsync() {
   }
 }
 
-export function* fetchCollectionsStart() {
+function* fetchCollectionsStart() {
   yield takeEvery(
     SHOP_DATA_REDUCER_ACTION_TYPES.FETCH_FASHION_COLLECTION_START,
     fetchFashionCollectionAsync
   );
+}
+
+export function* shopSagas() {
+  yield all([call(fetchCollectionsStart)]);
 }
